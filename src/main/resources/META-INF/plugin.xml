@@ -1,18 +1,25 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.trianguloy.mavendependencycollapse</id>
-    <name>mavenDependencyCollapse Template</name>
+    <id>com.trianguloy.mavendependencycollapse</id>
+    <name>Maven Dependency Collapse</name>
     <vendor>trianguloy</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
-
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.trianguloy.mavendependencycollapse.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+<!--        <lang.foldingBuilder language="DTD" implementationClass="com.trianguloy.mavendependencycollapse.MyFoldingBuilder" order="first"/>-->
+        <lang.foldingBuilder language="XML" implementationClass="com.trianguloy.mavendependencycollapse.DependencyFoldsBuilder" order="first"/>
+<!--        <lang.foldingBuilder language="HTML" implementationClass="com.trianguloy.mavendependencycollapse.MyFoldingBuilder" order="first"/>-->
+<!--        <lang.foldingBuilder language="XHTML"-->
+<!--                             implementationClass="com.trianguloy.mavendependencycollapse.MyFoldingBuilder" order="first"/>-->
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.trianguloy.mavendependencycollapse.listeners.MyFrameStateListener" topic="com.intellij.ide.FrameStateListener"/>
-    </applicationListeners>
+    <actions>
+        <action id="com.trianguloy.mavendependencycollapse.CollapseAllAction"
+                class="com.trianguloy.mavendependencycollapse.CollapseAllAction" text="Collapse All Maven Dependencies"
+                description="Collapses all maven dependencies in the current file">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+
 </idea-plugin>
