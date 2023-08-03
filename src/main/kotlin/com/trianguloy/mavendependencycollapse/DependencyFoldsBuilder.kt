@@ -12,6 +12,7 @@ import com.intellij.psi.impl.source.xml.XmlTextImpl
 import com.intellij.psi.impl.source.xml.XmlTokenImpl
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.psi.util.findParentInFile
 import com.intellij.psi.xml.XmlTokenType
 
 
@@ -57,12 +58,6 @@ class DependencyFoldsBuilder : FoldingBuilderEx() {
      */
     override fun isCollapsedByDefault(node: ASTNode) = true
 
-    /**
-     * The XmlTextImpl text
-     */
-    private val PsiElement.expandProperties
-        get() = PsiTreeUtil.findChildrenOfType(this, XmlTextImpl::class.java).firstOrNull()?.text
-
 }
 
 /**
@@ -83,4 +78,24 @@ private fun XmlTagImpl.getTokensByType(elementType: IElementType) =
  * The XmlTextImpl text
  */
 private val PsiElement.content
-    get() = PsiTreeUtil.findChildrenOfType(this, XmlTextImpl::class.java).firstOrNull()?.text
+    get() = PsiTreeUtil.findChildrenOfType(this, XmlTextImpl::class.java).firstOrNull()?.text?.expandProperties(this)
+
+/**
+ * resolve properties
+ */
+private fun String.expandProperties(node: PsiElement): String =
+    PROPERTY_REGEX.replace(this) {
+        it.groups[1]?.value?.let { node.getProperty(it) } ?: it.value
+    }
+private val PROPERTY_REGEX = Regex("\\$\\{([^}]*)}")
+
+/**
+ * returns a [property] by name (from a document that contains [this]), or null if not found
+ */
+private fun PsiElement.getProperty(property: String) =
+    findParentInFile { (it as? XmlTagImpl)?.name == "project" }
+        ?.getTagsByName("properties")
+        ?.firstOrNull()
+        ?.getTagsByName(property)
+        ?.firstOrNull()
+        ?.content
