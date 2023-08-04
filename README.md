@@ -1,8 +1,8 @@
 # mavenDependencyCollapse
 
 ![Build](https://github.com/TrianguloY/mavenDependencyCollapse/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/22423.svg)](https://plugins.jetbrains.com/plugin/22423)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/22423.svg)](https://plugins.jetbrains.com/plugin/22423)
 
 
 <!-- Plugin description -->
@@ -26,7 +26,7 @@ The format of the collapsible text is: ` groupId : artifactId : version (scope)`
 
 - Using IDE built-in plugin system:
   
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "mavenDependencyCollapse"</kbd> >
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "Maven Dependency Collapse"</kbd> >
   <kbd>Install Plugin</kbd>
   
 - Manually:
@@ -43,7 +43,7 @@ The format of the collapsible text is: ` groupId : artifactId : version (scope)`
 - [x] Adjust the plugin description in `README` (see [Tips][docs:plugin-description])
 - [x] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
 - [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the `PLUGIN_ID` in the above README badges.
+- [x] Set the `PLUGIN_ID` in the above README badges.
 - [ ] Set the [Plugin Signing](https://plugins.jetbrains.com/docs/intellij/plugin-signing.html?from=IJPluginTemplate) related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
 - [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
 - [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
