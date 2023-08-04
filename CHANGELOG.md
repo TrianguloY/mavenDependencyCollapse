@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Added
+- Improve plugin description
+
 ### Fixed
 - Fix version warning
 

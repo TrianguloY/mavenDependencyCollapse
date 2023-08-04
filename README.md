@@ -10,13 +10,13 @@ This plugin collapses maven dependencies for cleaner files.
 
 From
 
-![img.png](pre.png)
+![img.png](https://github.com/TrianguloY/mavenDependencyCollapse/blob/main/pre.png?raw=true)
 
 To
 
-![img_1.png](post.png)
+![img_1.png](https://github.com/TrianguloY/mavenDependencyCollapse/blob/main/post.png?raw=true)
 
-The plugin uses the built-in folding regions from the IDE, so even though they are collapsed by default you can just click on them, use the shortcuts or the sidebar arrows to fold/unfold. Additionally, a 'collapse all dependencies' action is available from the right-click menu (on the file).
+The plugin uses the built-in folding regions from the IDE, so even though they are collapsed by default you can just click on them, use the native shortcuts, or click the sidebar arrows to fold/unfold. Additionally, a 'collapse all dependencies' action is available from the editor right-click menu (if there are available regions).
 
 The format of the collapsible text is: ` groupId : artifactId : version (scope)` with version and scope being optional. May consider allowing for custom formats if the plugin is popular enough.
 
@@ -42,7 +42,7 @@ The format of the collapsible text is: ` groupId : artifactId : version (scope)`
 - [x] Adjust the [pluginGroup](./gradle.properties), [plugin ID](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/kotlin).
 - [x] Adjust the plugin description in `README` (see [Tips][docs:plugin-description])
 - [x] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
+- [x] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
 - [x] Set the `PLUGIN_ID` in the above README badges.
 - [ ] Set the [Plugin Signing](https://plugins.jetbrains.com/docs/intellij/plugin-signing.html?from=IJPluginTemplate) related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
 - [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
