@@ -6,6 +6,7 @@
 
 ### Added
 - Improve plugin description
+- Add plugin icon
 
 ### Fixed
 - Fix version warning
