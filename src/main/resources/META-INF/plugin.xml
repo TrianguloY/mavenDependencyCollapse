@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>com.trianguloy.mavendependencycollapse</id>
     <name>Maven Dependency Collapse</name>
-    <vendor>trianguloy</vendor>
+    <vendor>TrianguloY</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 

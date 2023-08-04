@@ -4,4 +4,6 @@
 
 ## [Unreleased]
 ### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+- Collapse dependencies from any pom file by default.
+- Replace properties with the value.
+- Action to collapse all dependencies in the file.
