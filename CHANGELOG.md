@@ -3,6 +3,12 @@
 # mavenDependencyCollapse Changelog
 
 ## [Unreleased]
+
+### Fixed
+- Fix version warning
+
+## [1.0.0]
+
 ### Added
 - Collapse dependencies from any pom file by default.
 - Replace properties with the value.
