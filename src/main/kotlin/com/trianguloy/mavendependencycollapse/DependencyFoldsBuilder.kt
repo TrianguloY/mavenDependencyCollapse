@@ -46,12 +46,16 @@ class DependencyFoldsBuilder : FoldingBuilderEx() {
 
 
     /**
-     * Each foldable region text is the concatenation of the internal elements
+     * Generate foldable text
      */
     override fun getPlaceholderText(node: ASTNode) =
-        listOf("groupId", "artifactId", "version").mapNotNull {
-            node.psi.getTagsByName(it).firstOrNull()?.content
-        }.joinToString(":") { " ${it.trim()} " }
+        " " +
+                (node.getTagContentByName("groupId") ?: "{no groupId}") +
+                " : " +
+                (node.getTagContentByName("artifactId") ?: "{no artifactId}") +
+                (node.getTagContentByName("version")?.let { " : $it" } ?: "") +
+                (node.getTagContentByName("scope")?.let { " ($it)" } ?: "") +
+                " "
 
     /**
      * All collapsed by default, of course
@@ -59,6 +63,11 @@ class DependencyFoldsBuilder : FoldingBuilderEx() {
     override fun isCollapsedByDefault(node: ASTNode) = true
 
 }
+
+/**
+ * Return the trimmed content of a node by its tag
+ */
+private fun ASTNode.getTagContentByName(name: String) = psi.getTagsByName(name).firstOrNull()?.content?.trim()
 
 /**
  * find XmlTagImpl with a given name
@@ -87,6 +96,7 @@ private fun String.expandProperties(node: PsiElement): String =
     PROPERTY_REGEX.replace(this) {
         it.groups[1]?.value?.let { node.getProperty(it) } ?: it.value
     }
+
 private val PROPERTY_REGEX = Regex("\\$\\{([^}]*)}")
 
 /**
