@@ -5,11 +5,11 @@
 ## [Unreleased]
 
 ### Added
-- Improve plugin description
+- Improve and fix plugin description
 - Add plugin icon
 
 ### Fixed
-- Fix version warning
+- Fix internal version warning
 
 ## [1.0.0]
 

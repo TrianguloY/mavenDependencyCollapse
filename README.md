@@ -4,22 +4,18 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/22423.svg)](https://plugins.jetbrains.com/plugin/22423)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/22423.svg)](https://plugins.jetbrains.com/plugin/22423)
 
+![pre-post](pre-post.png)
 
 <!-- Plugin description -->
-This plugin collapses maven dependencies for cleaner files.
-
-From
-
-![img.png](https://github.com/TrianguloY/mavenDependencyCollapse/blob/main/pre.png?raw=true)
-
-To
-
-![img_1.png](https://github.com/TrianguloY/mavenDependencyCollapse/blob/main/post.png?raw=true)
+**This plugin collapses maven dependencies for cleaner files.**
 
 The plugin uses the built-in folding regions from the IDE, so even though they are collapsed by default you can just click on them, use the native shortcuts, or click the sidebar arrows to fold/unfold. Additionally, a 'collapse all dependencies' action is available from the editor right-click menu (if there are available regions).
 
-The format of the collapsible text is: ` groupId : artifactId : version (scope)` with version and scope being optional. May consider allowing for custom formats if the plugin is popular enough.
+The format of the collapsible text is: ` groupId : artifactId : version (scope) ` with version and scope being optional. May consider allowing for custom formats if the plugin is popular enough.
 
+--
+
+Note: the plugin was developed for personal use, but published so friends and workmates can benefit from it. If you want to suggest or (even better) improve it yourself, the whole source code is available on [GitHub](https://github.com/TrianguloY/mavenDependencyCollapse). Any issue/pr will be welcomed!
 <!-- Plugin description end -->
 
 ## Installation
