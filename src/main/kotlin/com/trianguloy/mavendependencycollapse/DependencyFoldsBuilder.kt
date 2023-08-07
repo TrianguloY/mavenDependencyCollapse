@@ -93,11 +93,14 @@ private val PsiElement.content
  * resolve properties
  */
 private fun String.expandProperties(node: PsiElement): String =
-    PROPERTY_REGEX.replace(this) {
-        it.groups[1]?.value?.let { node.getProperty(it) } ?: it.value
+    propertyRegex.replace(this) { match ->
+        match.groups[1]?.value?.let { node.getProperty(it) } ?: match.value
     }
 
-private val PROPERTY_REGEX = Regex("\\$\\{([^}]*)}")
+/**
+ * Constant regex to extract properties
+ */
+private val propertyRegex = Regex("\\$\\{([^}]*)}")
 
 /**
  * returns a [property] by name (from a document that contains [this]), or null if not found

@@ -4,7 +4,7 @@ import com.intellij.codeInsight.folding.impl.EditorFoldingInfo
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.LangDataKeys
-import com.intellij.openapi.util.Key
+
 class CollapseAllAction : AnAction() {
     override fun update(e: AnActionEvent) {
         // enable if there is at least 1 custom folding region
