@@ -19,6 +19,14 @@ import com.intellij.util.xml.impl.GenericDomValueReference
 
 val USER_DATA = Key.create<Boolean>("com.trianguloy.mavendependencycollapse")
 
+private const val GROUP =
+    """((?:\\.|[^\\|}])*)""" // something that doesn't contain '\' '|' or '}' (unless it's escaped)
+private val REGEX = Regex("""\$\{$GROUP(?:\|$GROUP)?(?:\|$GROUP)?\}""") // ${something|maybethis|maybethat}
+
+private const val DEFAULT_SETTING =
+    """ ${'$'}{scope|[%s] |}${'$'}{groupId|%s|{no groupId\}} : ${'$'}{artifactId|%s|{no artifactId\}}${'$'}{version| : %s} """
+private const val DEFAULT_COLLAPSED = true
+
 class DependencyFoldsBuilder : FoldingBuilderEx() {
 
     /**
@@ -45,23 +53,20 @@ class DependencyFoldsBuilder : FoldingBuilderEx() {
             // and return as array
             .toList().toTypedArray()
 
-
     /**
-     * Generate foldable text
+     * Generate the foldable text
      */
     override fun getPlaceholderText(node: ASTNode) =
-        " " +
-                (node.getTagContentByName("groupId") ?: "{no groupId}") +
-                " : " +
-                (node.getTagContentByName("artifactId") ?: "{no artifactId}") +
-                (node.getTagContentByName("version")?.let { " : $it" } ?: "") +
-                (node.getTagContentByName("scope")?.let { " ($it)" } ?: "") +
-                " "
+        DEFAULT_SETTING.replace(REGEX) { match ->
+            val (_, name, replacement, notFound) = match.groupValues
+
+            node.getTagContentByName(name)?.let { replacement.format(it) } ?: notFound
+        }
 
     /**
-     * All collapsed by default, of course
+     * Collapsed by default
      */
-    override fun isCollapsedByDefault(node: ASTNode) = true
+    override fun isCollapsedByDefault(node: ASTNode) = DEFAULT_COLLAPSED
 
 }
 
