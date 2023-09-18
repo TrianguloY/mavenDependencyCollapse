@@ -7,13 +7,14 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReferenceService
 import com.intellij.psi.impl.source.xml.XmlTagImpl
 import com.intellij.psi.impl.source.xml.XmlTextImpl
 import com.intellij.psi.impl.source.xml.XmlTokenImpl
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.util.PsiTreeUtil
-import com.intellij.psi.util.findParentInFile
 import com.intellij.psi.xml.XmlTokenType
+import com.intellij.util.xml.impl.GenericDomValueReference
 
 
 val USER_DATA = Key.create<Boolean>("com.trianguloy.mavendependencycollapse")
@@ -65,9 +66,15 @@ class DependencyFoldsBuilder : FoldingBuilderEx() {
 }
 
 /**
- * Return the trimmed content of a node by its tag
+ * Return the resolved content of a node by its tag
  */
-private fun ASTNode.getTagContentByName(name: String) = psi.getTagsByName(name).firstOrNull()?.content?.trim()
+private fun ASTNode.getTagContentByName(name: String) = psi.getTagsByName(name).firstOrNull()
+    ?.run {
+        // find the resolved text
+        getReferences(PsiReferenceService.Hints.NO_HINTS).find { it is GenericDomValueReference<*> }?.canonicalText
+        // if not found, just return the verbatim text
+            ?: PsiTreeUtil.findChildrenOfType(this, XmlTextImpl::class.java).firstOrNull()?.text
+    }
 
 /**
  * find XmlTagImpl with a given name
@@ -82,33 +89,3 @@ private fun PsiElement.getTagsByName(name: String) =
 private fun XmlTagImpl.getTokensByType(elementType: IElementType) =
     PsiTreeUtil.findChildrenOfType(this, XmlTokenImpl::class.java)
         .filter { it.elementType == elementType }
-
-/**
- * The XmlTextImpl text
- */
-private val PsiElement.content
-    get() = PsiTreeUtil.findChildrenOfType(this, XmlTextImpl::class.java).firstOrNull()?.text?.expandProperties(this)
-
-/**
- * resolve properties
- */
-private fun String.expandProperties(node: PsiElement): String =
-    propertyRegex.replace(this) { match ->
-        match.groups[1]?.value?.let { node.getProperty(it) } ?: match.value
-    }
-
-/**
- * Constant regex to extract properties
- */
-private val propertyRegex = Regex("\\$\\{([^}]*)}")
-
-/**
- * returns a [property] by name (from a document that contains [this]), or null if not found
- */
-private fun PsiElement.getProperty(property: String) =
-    findParentInFile { (it as? XmlTagImpl)?.name == "project" }
-        ?.getTagsByName("properties")
-        ?.firstOrNull()
-        ?.getTagsByName(property)
-        ?.firstOrNull()
-        ?.content

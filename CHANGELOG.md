@@ -4,6 +4,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- Resolve placeholders using Jetbrains resolver (fixes ${project.version} and so much more!)
+
 ## [1.0.1] - 2023-08-07
 
 ### Added
