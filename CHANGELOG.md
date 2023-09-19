@@ -5,9 +5,7 @@
 ## [Unreleased]
 
 ### Added
-- Configurable settings:
-  - Collapsed by default
-  - Collapsable text
+- Configurable settings: change collapsable text and disable collapsed by default
 
 ### Fixed
 - Resolve placeholders using Jetbrains resolver (fixes ${project.version} and so much more!)

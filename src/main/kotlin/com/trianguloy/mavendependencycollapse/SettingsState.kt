@@ -26,5 +26,5 @@ class SettingsState : PersistentStateComponent<SettingsState?> {
     }
 }
 
-const val DEFAULT_COLLAPSED_TEXT = """ ${'$'}{scope|[%s] |}${'$'}{groupId|%s|{no groupId\}} : ${'$'}{artifactId|%s|{no artifactId\}}${'$'}{version| : %s} """
+const val DEFAULT_COLLAPSED_TEXT = """ ${'$'}{scope|[%s] }${'$'}{groupId||{no groupId\}} : ${'$'}{artifactId||{no artifactId\}}${'$'}{version| : %s} """
 const val DEFAULT_COLLAPSED_BY_DEFAULT = true
