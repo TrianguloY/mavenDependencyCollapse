@@ -12,9 +12,13 @@
 <!-- Plugin description -->
 **This plugin collapses maven dependencies for cleaner files.**
 
-The plugin uses the built-in folding regions from the IDE, so even though they are collapsed by default you can just click on them, use the native shortcuts, or click the sidebar arrows to fold/unfold. Additionally, a 'collapse all dependencies' action is available from the editor right-click menu (if there are available regions).
+The plugin uses the built-in folding regions from the IDE, so you can just click on them, use the native shortcuts, or click the sidebar arrows to fold/unfold. Additionally, a 'collapse all dependencies' action is available from the editor right-click menu (if there are available regions).
 
-The format of the collapsible text is: ` groupId : artifactId : version (scope) ` with version and scope being optional. May consider allowing for custom formats if the plugin is popular enough.
+The format of the collapsible text by default is: ` [scope] groupId : artifactId : version ` with version and scope being optional.
+
+From the plugin settings (File | Settings | Tools | [Maven Dependency Collapse](jetbrains://Idea/settings?name=Tools--Maven+Dependency+Collapse)) you can configure:
+- Whether dependencies are collapsed by default (default true).
+- The collapsible text (see above for default).
 
 --
 
