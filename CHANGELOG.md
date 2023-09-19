@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+### Added
+- Configurable settings:
+  - Collapsed by default
+  - Collapsable text
+
 ### Fixed
 - Resolve placeholders using Jetbrains resolver (fixes ${project.version} and so much more!)
 

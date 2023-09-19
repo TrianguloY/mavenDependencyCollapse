@@ -23,15 +23,9 @@ private const val GROUP =
     """((?:\\.|[^\\|}])*)""" // something that doesn't contain '\' '|' or '}' (unless it's escaped)
 private val REGEX = Regex("""\$\{$GROUP(?:\|$GROUP)?(?:\|$GROUP)?\}""") // ${something|maybethis|maybethat}
 
-private const val DEFAULT_SETTING =
-    """ ${'$'}{scope|[%s] |}${'$'}{groupId|%s|{no groupId\}} : ${'$'}{artifactId|%s|{no artifactId\}}${'$'}{version| : %s} """
-private const val DEFAULT_COLLAPSED = true
-
 class DependencyFoldsBuilder : FoldingBuilderEx() {
 
-    /**
-     * Creates and returns the folding of maven dependencies
-     */
+    /** Creates and returns the folding of maven dependencies */
     override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean) =
         // get all dependencies
         root.getTagsByName("dependency")
@@ -53,44 +47,34 @@ class DependencyFoldsBuilder : FoldingBuilderEx() {
             // and return as array
             .toList().toTypedArray()
 
-    /**
-     * Generate the foldable text
-     */
-    override fun getPlaceholderText(node: ASTNode) =
-        DEFAULT_SETTING.replace(REGEX) { match ->
-            val (_, name, replacement, notFound) = match.groupValues
+    /** Generate the foldable text */
+    override fun getPlaceholderText(node: ASTNode) = node.service.collapsedText.replace(REGEX) { match ->
+        val (_, name, replacement, notFound) = match.groupValues.map { it.replace(Regex("""\\(.)"""), "$1") }
 
-            node.getTagContentByName(name)?.let { replacement.format(it) } ?: notFound
-        }
+        node.getTagContentByName(name)?.let { replacement.ifEmpty { "%s" }.format(it) } ?: notFound
+    }
 
-    /**
-     * Collapsed by default
-     */
-    override fun isCollapsedByDefault(node: ASTNode) = DEFAULT_COLLAPSED
+    /** Collapsed by default */
+    override fun isCollapsedByDefault(node: ASTNode) = node.service.collapsedByDefault
 
 }
 
-/**
- * Return the resolved content of a node by its tag
- */
-private fun ASTNode.getTagContentByName(name: String) = psi.getTagsByName(name).firstOrNull()
-    ?.run {
-        // find the resolved text
-        getReferences(PsiReferenceService.Hints.NO_HINTS).find { it is GenericDomValueReference<*> }?.canonicalText
-        // if not found, just return the verbatim text
-            ?: PsiTreeUtil.findChildrenOfType(this, XmlTextImpl::class.java).firstOrNull()?.text
-    }
+/** Returns the SettingsState service from a node. */
+private val ASTNode.service
+    get() = psi.project.getService(SettingsState::class.java)
 
-/**
- * find XmlTagImpl with a given name
- */
+/** Return the resolved content of a node by its tag */
+private fun ASTNode.getTagContentByName(name: String) = psi.getTagsByName(name).firstOrNull()?.run {
+    // find the resolved text
+    getReferences(PsiReferenceService.Hints.NO_HINTS).find { it is GenericDomValueReference<*> }?.canonicalText
+    // if not found, just return the verbatim text
+        ?: PsiTreeUtil.findChildrenOfType(this, XmlTextImpl::class.java).firstOrNull()?.text
+}
+
+/** find XmlTagImpl with a given name */
 private fun PsiElement.getTagsByName(name: String) =
-    PsiTreeUtil.findChildrenOfType(this, XmlTagImpl::class.java)
-        .filter { it.name == name }
+    PsiTreeUtil.findChildrenOfType(this, XmlTagImpl::class.java).filter { it.name == name }
 
-/**
- * find XmlTokenImpl with a given elementType
- */
+/** find XmlTokenImpl with a given elementType */
 private fun XmlTagImpl.getTokensByType(elementType: IElementType) =
-    PsiTreeUtil.findChildrenOfType(this, XmlTokenImpl::class.java)
-        .filter { it.elementType == elementType }
+    PsiTreeUtil.findChildrenOfType(this, XmlTokenImpl::class.java).filter { it.elementType == elementType }

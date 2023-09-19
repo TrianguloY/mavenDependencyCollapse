@@ -7,11 +7,14 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-<!--        <lang.foldingBuilder language="DTD" implementationClass="com.trianguloy.mavendependencycollapse.MyFoldingBuilder" order="first"/>-->
-        <lang.foldingBuilder language="XML" implementationClass="com.trianguloy.mavendependencycollapse.DependencyFoldsBuilder" order="first"/>
-<!--        <lang.foldingBuilder language="HTML" implementationClass="com.trianguloy.mavendependencycollapse.MyFoldingBuilder" order="first"/>-->
-<!--        <lang.foldingBuilder language="XHTML"-->
-<!--                             implementationClass="com.trianguloy.mavendependencycollapse.MyFoldingBuilder" order="first"/>-->
+        <lang.foldingBuilder language="XML"
+                             implementationClass="com.trianguloy.mavendependencycollapse.DependencyFoldsBuilder"
+                             order="first"/>
+        <projectConfigurable
+                parentId="tools"
+                instance="com.trianguloy.mavendependencycollapse.SettingsConfigurable"
+                id="com.trianguloy.mavendependencycollapse.SettingsConfigurable"
+                displayName="Maven Dependency Collapse"/>
     </extensions>
 
     <actions>
