@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2023-09-20
+
 ### Added
 - Configurable settings: change collapsable text and disable collapsed by default
 
@@ -26,6 +28,7 @@
 - Replace properties with the value.
 - Action to collapse all dependencies in the file.
 
-[Unreleased]: https://github.com/TrianguloY/mavenDependencyCollapse/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/TrianguloY/mavenDependencyCollapse/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/TrianguloY/mavenDependencyCollapse/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/TrianguloY/mavenDependencyCollapse/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/TrianguloY/mavenDependencyCollapse/commits/v1.0.0
