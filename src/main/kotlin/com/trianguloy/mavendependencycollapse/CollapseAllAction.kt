@@ -1,6 +1,7 @@
 package com.trianguloy.mavendependencycollapse
 
 import com.intellij.codeInsight.folding.impl.EditorFoldingInfo
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.LangDataKeys
@@ -17,9 +18,9 @@ class CollapseAllAction : AnAction() {
             ?.runBatchFoldingOperation({ e.foldingRegions?.forEach { it.isExpanded = false } }, true, true)
     }
 
-    /**
-     * get our folding regions
-     */
+    override fun getActionUpdateThread() = ActionUpdateThread.BGT
+
+    /** get our folding regions */
     private val AnActionEvent.foldingRegions
         get() = getData(LangDataKeys.EDITOR)?.foldingModel?.allFoldRegions?.filter { EditorFoldingInfo.get(it.editor).getPsiElement(it)?.getUserData(USER_DATA) == true }
 }

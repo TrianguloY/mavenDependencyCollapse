@@ -1,8 +1,12 @@
-<!-- Keep a Changelog guide -> https://keepachangelog.com -->
+# Maven Dependency Collapse Changelog
 
-# mavenDependencyCollapse Changelog
+## [1.2.0] - 2024-09-04
 
-## [Unreleased]
+### Fixed
+- Fixed `ActionUpdateThread.OLD_EDT is deprecated and going to be removed soon`
+
+### Internal
+- Updated and simplified repository and tools
 
 ## [1.1.0] - 2023-09-20
 
@@ -28,7 +32,7 @@
 - Replace properties with the value.
 - Action to collapse all dependencies in the file.
 
-[Unreleased]: https://github.com/TrianguloY/mavenDependencyCollapse/compare/v1.1.0...HEAD
+[1.2.0]: https://github.com/TrianguloY/mavenDependencyCollapse/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/TrianguloY/mavenDependencyCollapse/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/TrianguloY/mavenDependencyCollapse/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/TrianguloY/mavenDependencyCollapse/commits/v1.0.0
