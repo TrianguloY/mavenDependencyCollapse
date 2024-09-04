@@ -37,7 +37,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild = "232"
-        // untilBuild = "242.*"
+        untilBuild = "" // "242.*"
         pluginDescription = File("README.md").readText().let {
             val start = "<!-- Plugin description -->"
             val end = "<!-- Plugin description end -->"
