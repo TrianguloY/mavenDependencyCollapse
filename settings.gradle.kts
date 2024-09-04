@@ -1,1 +1,8 @@
-rootProject.name = "mavenDependencyCollapse"
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = "mavendependencycollapse"
