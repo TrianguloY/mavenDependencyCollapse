@@ -1,22 +1,14 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>com.trianguloy.mavendependencycollapse.mavendependencycollapse</id>
+    <id>com.trianguloy.mavendependencycollapse</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>Mavendependencycollapse</name>
+    <name>Maven Dependency Collapse</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor email="support@yourcompany.com" url="https://www.yourcompany.com">YourCompany</vendor>
-
-    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
-         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
-         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-    <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-  ]]></description>
+    <vendor>TrianguloY</vendor>
 
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
@@ -25,6 +17,20 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <lang.foldingBuilder language="XML"
+                             implementationClass="com.trianguloy.mavendependencycollapse.DependencyFoldsBuilder"
+                             order="first"/>
+        <projectConfigurable
+                parentId="tools"
+                instance="com.trianguloy.mavendependencycollapse.SettingsConfigurable"
+                id="com.trianguloy.mavendependencycollapse.SettingsConfigurable"
+                displayName="Maven Dependency Collapse"/>
     </extensions>
+    <actions>
+        <action id="com.trianguloy.mavendependencycollapse.CollapseAllAction"
+                class="com.trianguloy.mavendependencycollapse.CollapseAllAction" text="Collapse All Maven Dependencies"
+                description="Collapses all maven dependencies in the current file">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>

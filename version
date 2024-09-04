@@ -1,0 +1,5 @@
+# whenever a change to this file is pushed to github,
+# the version will be compiled and published
+# the version must be the last line
+
+1.2.0

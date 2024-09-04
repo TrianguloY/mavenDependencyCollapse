@@ -1,11 +1,16 @@
+import org.jetbrains.changelog.Changelog
+import org.jetbrains.changelog.markdownToHTML
+
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.9.25"
     id("org.jetbrains.intellij") version "1.17.4"
+
+    id("org.jetbrains.changelog") version "2.2.1"
 }
 
 group = "com.trianguloy.mavendependencycollapse"
-version = "1.0-SNAPSHOT"
+version = File("version").readText().lines().last { it.isNotEmpty() }
 
 repositories {
     mavenCentral()
@@ -31,8 +36,28 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("232")
-        untilBuild.set("242.*")
+        sinceBuild = "232"
+        // untilBuild = "242.*"
+        pluginDescription = File("README.md").readText().let {
+            val start = "<!-- Plugin description -->"
+            val end = "<!-- Plugin description end -->"
+
+            with(it.lines()) {
+                if (!containsAll(listOf(start, end))) {
+                    throw GradleException("Plugin description section not found in README.md:\n$start\n...\n$end")
+                }
+                subList(indexOf(start) + 1, indexOf(end))
+                    .joinToString("\n").let(::markdownToHTML)
+            }
+        }
+        changeNotes = with(changelog) {
+            renderItem(
+                (getOrNull(version.get()) ?: getUnreleased())
+                    .withHeader(false)
+                    .withEmptySections(false),
+                Changelog.OutputType.HTML
+            )
+        }
     }
 
     signPlugin {
