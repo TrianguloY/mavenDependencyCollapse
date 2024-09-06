@@ -1,7 +1,7 @@
 <div style="text-align: center;">
 <h1>Maven Dependency Collapse plugin</h1>
 
-![Build](https://github.com/TrianguloY/mavenDependencyCollapse/workflows/Build/badge.svg)
+[![Verify plugin](https://github.com/TrianguloY/mavenDependencyCollapse/actions/workflows/verify.yml/badge.svg)](https://github.com/TrianguloY/mavenDependencyCollapse/actions/workflows/verify.yml)
 [![Version](https://img.shields.io/jetbrains/plugin/v/22423.svg)](https://plugins.jetbrains.com/plugin/22423)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/22423.svg)](https://plugins.jetbrains.com/plugin/22423)
 
