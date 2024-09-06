@@ -44,4 +44,4 @@ Note: the plugin was developed for personal use, but published so friends and wo
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 ---
-Plugin based on the [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template).
+Plugin originally based on the [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template), but later removed to simplify everything.
